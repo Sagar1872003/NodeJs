@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-right: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .actions button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .form-container {
+            width: 35%;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Deadline</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% tasks.forEach((task) => { %>
+                    <tr>
+                        <td><%= task.task %></td>
+                        <td><%= task.status %></td>
+                        <td><%= task.deadline %></td>
+                        <td class="actions">
+                            <a href="/edittask?id=<%= task.id %>">
+                                <button class="edit-btn">Edit</button>
+                            </a>
+                            <a href="/deletetask?id=<%= task.id %>">
+                                <button class="delete-btn">Delete</button>
+                            </a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <div class="form-container">
+            <h2><%= editTask ? "Edit Task" : "Add Task" %></h2>
+            <form action="<%= editTask ? '/updatetask' : '/addtask' %>" method="POST">
+                <% if (editTask) { %>
+                    <input type="hidden" name="id" value="<%= editTask.id %>">
+                <% } %>
+                <input
+                    type="text"
+                    name="task"
+                    placeholder="Enter Task"
+                    value="<%= editTask ? editTask.task : '' %>"
+                    required
+                >
+                <select name="status" required>
+                    <option value="Ongoing" <%= editTask && editTask.status === 'Ongoing' ? 'selected' : '' %>>Ongoing</option>
+                    <option value="Completed" <%= editTask && editTask.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+                    <option value="Pending" <%= editTask && editTask.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                </select>
+                <input
+                    type="date"
+                    name="deadline"
+                    value="<%= editTask ? editTask.deadline : '' %>"
+                    required
+                >
+                <button type="submit"><%= editTask ? "Update Task" : "Add Task" %></button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
