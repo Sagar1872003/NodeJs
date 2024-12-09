@@ -11,7 +11,7 @@ let record= []
 app.use(express.urlencoded())
 app.get('/', (req,res)=> {
     return res.render('index')
-});
+})
 app.get('/add',(req,res)=>{
     return res.render('add')
 })

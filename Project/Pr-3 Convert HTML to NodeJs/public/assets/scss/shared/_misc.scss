@@ -23,9 +23,8 @@ pre {
 
 code {
   padding: 5px;
-  color: theme-color(danger);
-  font-family: $type1;
-  font-weight: $font-weight-light;
+  color: $danger;
+  font-family: $type1-light;
   font-size: $default-font-size;
   border-radius: 4px;
 }
@@ -56,4 +55,19 @@ code {
       line-height: 36px;
     }
   }
+}
+.pro-banner {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+	.pro-banner-bg {
+		background: $pro-banner;
+    width: 100%;
+	}
+}
+.media {
+  display: flex;
 }

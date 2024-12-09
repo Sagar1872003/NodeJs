@@ -1,6 +1,6 @@
 
 ////////// SIDEBAR ////////
-$sidebar-width-lg: 240px;
+$sidebar-width-lg: 260px;
 $sidebar-width-mini: 185px;
 $sidebar-width-icon: 70px;
 
@@ -8,34 +8,30 @@ $sidebar-light-bg: $white;
 $sidebar-light-menu-color: #3e4b5b;
 $sidebar-light-submenu-color: #888;
 $sidebar-light-menu-active-bg: $white;
-$sidebar-light-menu-active-color: theme-color(success);
+$sidebar-light-menu-active-color: $primary;
 $sidebar-light-menu-hover-bg: darken($sidebar-light-bg, 1%);
 $sidebar-light-menu-hover-color: darken($sidebar-light-menu-color, 10%);
 $sidebar-light-submenu-hover-color: darken($sidebar-light-submenu-color, 20%);
-$sidebar-light-menu-icon-color: #626262;
-$sidebar-light-menu-arrow-color: #626262;
+$sidebar-light-menu-icon-color: #bba8bff5;
+$sidebar-light-menu-arrow-color: #9e9da0;
 $sidebar-light-menu-border-color: #f2edf3;
 
-$sidebar-dark-bg: #181824;
+$sidebar-dark-bg: #18151e;
 $sidebar-dark-menu-color: $white;
-$sidebar-dark-menu-active-bg: #282828;
+$sidebar-dark-menu-active-bg: #282037;
 $sidebar-dark-menu-active-color: darken($white, 30%);
 $sidebar-dark-menu-hover-bg: lighten($sidebar-dark-bg, 10%);
-$sidebar-dark-menu-hover-color: color(white);
+$sidebar-dark-menu-hover-color: $white;
 $sidebar-dark-submenu-color: $sidebar-dark-menu-color;
 $sidebar-dark-submenu-hover-bg: initial;
 $sidebar-dark-submenu-hover-color: darken($sidebar-dark-submenu-color, 30%);
-$sidebar-dark-menu-icon-color: #626262;
-$sidebar-dark-menu-arrow-color: #626262;
-
-$sidebar-nav-category-color: theme-color(success);
-$sidebar-nav-category-padding: 1rem 0 1.125rem;
-
-$sidebar-nav-link-border-color: rgba($white, 0.11);
+;
+$sidebar-dark-menu-icon-color: #bba8bff5;
+$sidebar-dark-menu-arrow-color: #9e9da0;
 
 $sidebar-menu-font-size: $default-font-size;
-$sidebar-menu-padding-y: 0.625rem;
-$sidebar-menu-padding-x: 1.75rem;
+$sidebar-menu-padding-y: 1.125rem;
+$sidebar-menu-padding-x: 2.25rem;
 
 $sidebar-submenu-font-size: .8125rem;
 $sidebar-submenu-item-padding: .75rem 2rem .75rem 2rem;
@@ -58,3 +54,7 @@ $icon-only-menu-bg-light: $sidebar-light-menu-hover-bg;
 $icon-only-menu-bg-dark: $sidebar-dark-menu-hover-bg;
 
 ///////// SIDEBAR ////////
+
+$bullet-line-list-shape-bg: color(white) !default;
+$pro-banner: #000;
+$blue-teal-gradient: linear-gradient(to right, #da8cff, #9a55ff) !important;

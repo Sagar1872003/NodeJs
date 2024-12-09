@@ -7,8 +7,7 @@
     th {
       border-top: 0;
       border-bottom-width: 1px;
-      font-family: $type1;
-      font-weight: $font-weight-medium;
+      font-family: $type1-medium;
       font-weight: initial;
 
       i {
@@ -23,11 +22,17 @@
     font-size: $default-font-size;
     line-height: 1;
     white-space: nowrap;
+    padding: $table-cell-padding;
 
     img {
       width: 36px;
       height: 36px;
       border-radius: 100%;
+
+      &.img-45-30 {
+        width: 45px;
+        height: 30px;
+      }
     }
 
     .badge {
@@ -42,6 +47,35 @@
     td,
     th {
       border: none;
+    }
+  }
+}
+
+.table> :not(:last-child)> :last-child>*,
+.jsgrid .jsgrid-table> :not(:last-child)> :last-child>* {
+  border-bottom-color: $border-color;
+}
+
+.table> :not(:first-child),
+.jsgrid .jsgrid-table> :not(:first-child) {
+  border-top: none;
+}
+
+.table-hover {
+  thead {
+    th {
+      td {
+        color: $body-color;
+        background-color: $card-bg;
+      }
+    }
+  }
+
+  tbody {
+
+    tr:hover,
+    td {
+      color: gray;
     }
   }
 }

@@ -11,14 +11,6 @@
   }
 }
 
-.navbar {
-  &.fixed-top {
-    + .page-body-wrapper {
-      padding-top: $navbar-height;
-    }
-  }
-}
-
 .main-panel {
   transition: width $action-transition-duration $action-transition-timing-function, margin $action-transition-duration $action-transition-timing-function;
   width: calc(100% - #{$sidebar-width-lg});
@@ -33,7 +25,7 @@
 
 .content-wrapper {
   background: $content-bg;
-  padding: 2.75rem 1.5rem 0;
+  padding: 2.75rem 2.25rem;
   width: 100%;
   @include flex-grow(1);
 }

@@ -2,8 +2,8 @@
 
 .sidebar {
   min-height: calc(100vh - #{$navbar-height});
-  background: $sidebar-dark-bg;
-  font-family: $type1;
+  background: $sidebar-light-bg;
+  font-family: $type1-regular;
   padding: 0;
   width: $sidebar-width-lg;
   z-index: 11;
@@ -32,14 +32,10 @@
         @include align-items(center);
         white-space: nowrap;
         padding:$sidebar-menu-padding-y 0 $sidebar-menu-padding-y 0;
-        color: $sidebar-dark-menu-color;
+        color: $sidebar-light-menu-color;
         @include transition-duration(0.45s);
         transition-property: color;
         -webkit-transition-property: color;
-
-        :not(.sub-menu) & {
-          border-top: 1px solid $sidebar-nav-link-border-color;
-        }
 
         i {
           color: inherit;
@@ -48,9 +44,40 @@
             font-size: $sidebar-icon-font-size;
             line-height: 1;
             margin-left: auto;
-            color: $sidebar-dark-menu-icon-color;
+            .rtl & {
+              margin-left: 0;
+              margin-right: auto;
+            }
+            color: $sidebar-light-menu-icon-color;
             &:before {
               vertical-align: middle;
+            }
+          }
+
+          &.menu-arrow {
+            font: normal normal normal 24px/1 "Material Design Icons";
+            line-height: 1;
+            font-size: $sidebar-icon-font-size;
+            margin-left: auto;
+            .rtl & {
+              margin-left: 0;
+              margin-right: auto;
+            }
+            color: $sidebar-light-menu-arrow-color;
+            &:before{
+              content: "\f0141";
+              font-size: inherit;
+              color: inherit;
+              .rtl & {
+                content: "\F0142";
+              }
+            }
+            + .menu-icon {
+              margin-left: .25rem;
+              .rtl & {
+                margin-left: 0;
+                margin-right: .25rem;
+              }
             }
           }
         }
@@ -61,6 +88,7 @@
           font-size: $sidebar-menu-font-size;
           line-height: 1;
           vertical-align: middle;
+          white-space: normal;
         }
 
         .badge {
@@ -71,168 +99,71 @@
         &[aria-expanded="true"]{
           .menu-arrow{
             &:before{
-              content: "\f140";
+              content: "\f0140";
             }
           }
         }
       }
 
-      &.active:not(.navbar-brand-mini-wrapper) {
-        background: $sidebar-dark-menu-active-bg;
+      &.active {
+        background: $sidebar-light-menu-active-bg;
         > .nav-link {
           .menu-title {
-            color: $sidebar-dark-menu-active-color;
-            font-family: $type1;
-            font-weight: $font-weight-medium;;            
+            color: $sidebar-light-menu-active-color;
+            font-family: $type1-medium;            
           }
           i {
-            color: theme-color(success);
+            color: $primary;
           }
         }
       }
-      &:not(.nav-category):hover{
-        background: $sidebar-dark-menu-hover-bg;
+      &:hover{
+        background: $sidebar-light-menu-hover-bg;
       }
       &.nav-profile {
-        max-width: 270px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-
         .nav-link {
-          display: flex;
-          border-top: none;
-          padding: 10px 0;
-
-          .profile-image {
-            margin-right: 15px;
-            position: relative;
-
-            .rtl & {
-              margin-right: 0;
-              margin-left: 15px;
+          height: auto;
+          line-height: 1;
+          border-top: 0;
+          padding: 1.25rem 0;
+          .nav-profile-image {
+            width: 44px;
+            height: 44px;
+            img {
+              width: 44px;
+              height: 44px;
+              border-radius: 100%;
             }
           }
-
-          .dot-indicator {
-            position: absolute;
-            top: 50%;
-            right: 0px;
-            transform: translate(50%,-50%);
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-
+          .nav-profile-text {
+            margin-left: 1rem;
             .rtl & {
-              left: 0;
-              right: auto;
-              transform: translate(-50%,-50%); 
+              margin-left: auto;
+              margin-right: 1rem;
             }
           }
-
-          .profile-name {
-            margin-bottom: 5px;
-            font-weight: 500;
-            font-size: 15px;
-          }
-
-          .designation {
-            margin-bottom: 0;
-            font-weight: 400;
-            color: $text-muted;
-            font-size: 12px;
-          }
-
-          .icon-container{
-            font-size: 16px;
-            position: relative;
-            color: $sidebar-dark-menu-icon-color;
+          .nav-profile-badge {
+            font-size: 1.125rem;
             margin-left: auto;
-            align-self: flex-start;
-
             .rtl & {
               margin-left: 0;
               margin-right: auto;
             }
-
-            .sidebar-mini & {
-              margin-right: auto;
-            }
-
-            .dot-indicator{
-              top: 0;
-              transform: none;
-              color: $sidebar-dark-menu-icon-color;
-            }
           }
         }
       }
-
-      &.nav-category {
-        color: $sidebar-nav-category-color;
-        font-size: 13px;
-        font-weight: 700;
-        text-transform: uppercase;
-
+      &.sidebar-actions {
+        margin-top: 1rem;
         .nav-link {
-          border: none;
-        }
-
-        & ~ .nav-category {
-
-          .nav-link{
-            border-top: 1px solid $sidebar-nav-link-border-color;
-          }
-        }
-
-        & + .nav-item {
-          & > .nav-link {
-            border-top: 1px solid $sidebar-nav-link-border-color;
-
-          }
-        }
-
-        .nav-link{
-          color: inherit;
-          padding: $sidebar-nav-category-padding;
-
-          .sidebar-dark & {
-            color: inherit;
-          }
-        }
-      }
-      &.pro-upgrade {
-
-        .nav-link {
-          padding-top: 2.25rem;
-          .btn-upgrade {
-            background-image: linear-gradient(to left, #a25cff, #d78aff);
-            background-color: #a25cff;
-            color: $white;
-          }
+          border-top: 0;
+          display: block;
+          height: auto;
         }
         &:hover {
-          background-color: transparent !important;
-
-          .sidebar-dark & {
-            background-color: transparent !important;
+          background: initial;
+          .nav-link {
+            color: initial;
           }
-        }
-      }
-
-      &.navbar-brand-mini-wrapper {
-        display: none;
-
-        .nav-link {
-          width: 100%;
-
-          .sidebar-icon-only & {
-            margin: 0;
-          }
-        }
-
-        .sidebar-icon-only & {
-          display: block;
-
         }
       }
     }
@@ -242,7 +173,7 @@
         &:hover {
           &:not(.nav-category):not(.nav-profile) {
             > .nav-link {
-              color: $sidebar-dark-menu-hover-color;
+              color: $sidebar-light-menu-hover-color;
             }
           }
         }
@@ -256,7 +187,7 @@
       .nav-item {
         padding: 0;
         .nav-link {
-          color: $sidebar-dark-submenu-color;
+          color: $sidebar-light-submenu-color;
           padding: $sidebar-submenu-item-padding;
           position: relative;
           font-size: $sidebar-submenu-font-size;
@@ -264,26 +195,112 @@
           height: auto;
           border-top: 0;
           &:before {
-            content: "\e606";
-            font-family: "simple-line-icons";
+            content: "\F0054";
+            font-family: "Material Design Icons";
             display: block;
             position: absolute;
             left:0px;
+            .rtl & {
+              content: "\F04D";
+              left: auto;
+              right: 0;
+            }
             top:50%;
             @include transform(translateY(-50%));
-            color: lighten($sidebar-dark-submenu-color, 10%);
+            color: lighten($sidebar-light-submenu-color, 10%);
             font-size: .75rem;
           }
           &.active {
-            color: $sidebar-dark-menu-active-color;
+            color: $sidebar-light-menu-active-color;
             background: transparent;
           }
           &:hover {
-            color: $sidebar-dark-submenu-hover-color;
+            color: $sidebar-light-submenu-hover-color;
           }
         }
         &:hover {
           background: transparent;
+        }
+      }
+    }
+  }
+}
+//sidebar color variation
+.sidebar-dark {
+  .sidebar {
+    background: $sidebar-dark-bg;
+    .nav {
+      .nav-item {
+        .nav-link {
+          color: $sidebar-dark-menu-color;
+          i {
+            color: inherit;
+            &.menu-icon {
+              color: $sidebar-dark-menu-icon-color;
+            }
+            &.menu-arrow {
+              color: $sidebar-dark-menu-arrow-color;
+              &:before{
+                color: inherit;
+              }
+            }
+          }
+          .menu-title {
+            color: inherit;
+          }
+        }
+        &.active {
+          background: $sidebar-dark-menu-active-bg;
+          > .nav-link {
+            .menu-title {
+              color: $sidebar-dark-menu-active-color;
+            }
+            i {
+              color: $primary;
+            }
+          }
+        }
+        &:hover {
+          background: $sidebar-dark-menu-hover-bg;
+        }
+        &.sidebar-actions {
+          &:hover {
+            background: initial;
+            .nav-link {
+              color: initial;
+            }
+          }
+        }
+      }
+      &:not(.sub-menu) {
+        > .nav-item {
+          &:hover {
+            &:not(.nav-category):not(.nav-profile) {
+              > .nav-link {
+                color: $sidebar-dark-menu-hover-color;
+              }
+            }
+          }
+        }
+      }
+      &.sub-menu {
+        .nav-item {
+          .nav-link {
+            color: $sidebar-dark-submenu-color;
+            &:before {
+              color: lighten($sidebar-dark-submenu-color, 10%);
+            }
+            &.active {
+              color: $sidebar-dark-menu-active-color;
+              background: transparent;
+            }
+            &:hover {
+              color: $sidebar-dark-submenu-hover-color;
+            }
+          }
+          &:hover {
+            background: transparent;
+          }
         }
       }
     }
