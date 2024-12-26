@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <!-- Internal CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        form div {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        img {
+            margin-top: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            background-color: #ffc107;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #e0a800;
+        }
+
+        a {
+            text-decoration: none;
+            color: #17a2b8;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #138496;
+        }
+
+        input[name="editid"] {
+            display: none; /* Hide ID field */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit User</h2>
+        <form action="/updateData" method="post" enctype="multipart/form-data">
+            <input type="text" name="editid" value="<%= single.id %>">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" value="<%= single.name %>" placeholder="Enter Your Name" required>
+            </div>
+            <div>
+                <label for="phone">Phone:</label>
+                <input type="text" name="phone" value="<%= single.phone %>" placeholder="Enter Your Phone no.">
+            </div>
+            <div>
+                <label for="image">Insert Image:</label>
+                <input type="file" name="avtar">
+                <br>
+                <img src="<%= single.image %>" width="100" alt="Current Image">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <br>
+        <a href="/">View Users</a>
+    </div>
+</body>
+</html>
