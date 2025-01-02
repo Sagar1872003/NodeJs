@@ -6,7 +6,7 @@ const movieSchema = mongoose.Schema({
         required: true,
         
     },
-    moviedescription: {
+    moviedescription: { 
         type: String,
         required: true,
         
