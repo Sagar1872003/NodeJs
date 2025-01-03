@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Read Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
-<style>
+<style>/* Container styling */
+/* General Styles */
+/* General Styles */
     /* Importing Google Fonts and Boxicons */
 /* @import "https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap";*/
 
@@ -292,7 +295,7 @@
 /* Main content (home section) styling */
 .home-section {
   position: relative;
-  background: #E4E9F7; /* Light background for main content */
+  background: #E4E9F7; 
   min-height: 100vh;
   top: 0;
   left: 78px;
@@ -338,258 +341,196 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px); /* Slight upward movement */
 }
-.wrap{
+
+/* Centered Container */
+.container {
   display: flex;
-  flex-wrap: wrap;
-  padding: 0 10px;
-}
-/* Card styling */
-.card {
-  border: 1px solid #ddd;
+  width: 90%; /* Adjust width as needed */
+  height: 75vh; /* Occupy 3/4 of the screen height */
+  background-color: white;
   border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  background: #fff;
+}
+
+/* Image Section */
+.img-container {
+  flex: 3; /* Takes half the screen width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0e0e0; /* Optional background for clarity */
+  overflow: hidden;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Image container styling */
-.card-img {
-  position: relative;
+.img-container img {
+  height: 100%; /* Fit the image within the container */
+  width: 100%;
+  object-fit: cover; /* Ensures the image scales properly */
+  border-radius: 8px;
   overflow: hidden;
 }
 
-.card-img img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.4s ease;
+/* Hover Effect for Image Section */
+.img-container:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.card-img:hover img {
-  transform: scale(1.1);
-}
-
-/* Read More button */
-.card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+/* Data Section */
+.card-content {
+  flex: 3; /* Takes the other half of the screen width */
+  padding: 40px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  background-color: white;
 }
 
-.card-img:hover .card-overlay {
-  opacity: 1;
+.card-content h1 {
+  color: #00796b;
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
-.card-overlay .read-more-btn {
-  padding: 10px 20px;
-  background-color: #ff5722;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+.card-content .excerpt {
+  color: #555;
+  font-size: 18px;
+  margin-bottom: 20px;
+  line-height: 1.6;
 }
 
-.card-overlay .read-more-btn:hover {
-  background-color: #e64a19;
-  transform: scale(1.1);
+.card-content .author {
+  color: #888;
+  font-size: 16px;
+  font-style: italic;
 }
 
-/* Body content styling */
-.card-body {
-  position: relative;
-  padding: 15px;
-  text-align: left;
-  transition: transform 0.4s ease;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack sections vertically */
+    height: auto; /* Adjust height for small screens */
+  }
+
+  .img-container {
+    height: 50vh; /* Half of the screen height for the image */
+  }
+
+  .card-content {
+    padding: 20px;
+  }
 }
 
-/* Author and buttons section */
-.author-section {
-  position: absolute;
-  bottom: -80px; /* Initially hidden below the card */
-  left: 0;
-  width: 100%;
-  background: #f4f4f4;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-  transition: bottom 0.4s ease;
-}
-
-.card:hover .author-section {
-  bottom: 0; /* Slide up on hover */
-}
-
-.author-section span {
-  font-size: 14px;
-  color: #666;
-  font-weight: bold;
-}
-
-.author-section a {
-  padding: 8px 16px;
-  background-color: #2196f3;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.author-section a:hover {
-  background-color: #1976d2;
-  transform: scale(1.1);
-}
-
-/* Special styles for Delete button */
-.author-section a.delete-btn {
-  background-color: #f44336;
-}
-
-.author-section a.delete-btn:hover {
-  background-color: #d32f2f;
-}
-
-</style>
-<body>
-   
-      <!-- Sidebar for navigation -->
-  <div class="sidebar">
-    <div class="logo-details">
-      <!-- Icon and logo name -->
-      <i class='bx bxl-c-plus-plus icon'></i>
-      <div class="logo_name">Blog</div>
-      <i class='bx bx-menu' id="btn"></i> <!-- Menu button to toggle sidebar -->
-    </div>
-    <ul class="nav-list">
-      <!-- Search bar -->
-      <li>
-        <i class='bx bx-search'></i>
-        <input type="text" placeholder="Search...">
-        <span class="tooltip">Search</span>
-      </li>
-      <!-- List of navigation items -->
-      <li>
-        <a href="/dashboard">
-          <i class='bx bx-grid-alt'></i>
-          
-        </a>
-        <span class="tooltip">Dashboard</span>
-      </li>
-      <!-- Additional navigation items -->
- 
-      <li>
-        <a href="/add">
-          <i class="fa-solid fa-plus"></i>
-          
-        </a>
-        <span class="tooltip">Add Blog</span>
-      </li>
-      <!-- Profile section -->
-      <li class="profile">
-        <div class="profile-details">
-          <!--<img src="profile.jpg" alt="profileImg">-->
-          <div class="name_job">
-            <div class="name"> Log out </div>
-          </div>
-        </div>
-        <a href="/logoutuser"><i class='bx bx-log-out' id="log_out"></i> </a><!-- Logout icon -->
-      </li>
-    </ul>
-  </div>
-  <!-- Main content area -->
-  <section class="home-section">
-    <div class="text">Dashboard
-      
-    </div>
-    
-
-    <div class="wrap">
-      
-      <% blogs.map((val)=>{  %>
-        <div class="card">
-          <div class="card-img">
-            <img src="<%= val.image %>" alt="" />
-            <div class="card-overlay">
-              <a href="/readmore?readid=<%= val.id %>" class="read-more-btn">Read More</a>
-            </div>
-          </div>
-          <div class="card-body">
-            <h6>
-              <%= val.title %>
-              <span>by <%= val.author %></span>
-            </h6>
-          </div>
-          <div class="author-section">
-            <span>by <%= val.author %></span>
-            <div>
-              <a href="/deleteblog?deleteid=<%= val.id %>" class="delete-btn">Delete</a>
-              <a href="/editblog?editid=<%= val.id %>">Edit</a>
-            </div>
-          </div>
-        </div>
-        
-          <% }); %>
-
-    </div>
-   
-
-
-            
 
   
-
-  </section>
-
-
+</style>
+<body>
+     
+      <!-- Sidebar for navigation -->
+      <div class="sidebar">
+        <div class="logo-details">
+          <!-- Icon and logo name -->
+          <i class='bx bxl-c-plus-plus icon'></i>
+          <div class="logo_name">Blog</div>
+          <i class='bx bx-menu' id="btn"></i> <!-- Menu button to toggle sidebar -->
+        </div>
+        <ul class="nav-list">
+          <!-- Search bar -->
+          <li>
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search...">
+            <span class="tooltip">Search</span>
+          </li>
+          <!-- List of navigation items -->
+          <li>
+            <a href="/dashboard">
+              <i class='bx bx-grid-alt'></i>
+              
+            </a>
+            <span class="tooltip">Dashboard</span>
+          </li>
+          <!-- Additional navigation items -->
+     
+          <li>
+            <a href="/add">
+              <i class="fa-solid fa-plus"></i>
+              
+            </a>
+            <span class="tooltip">Add Blog</span>
+          </li>
+          <!-- Profile section -->
+          <li class="profile">
+            <div class="profile-details">
+              <!--<img src="profile.jpg" alt="profileImg">-->
+              <div class="name_job">
+                <div class="name"> Log out </div>
+              </div>
+            </div>
+            <a href="/logoutuser"><i class='bx bx-log-out' id="log_out"></i> </a><!-- Logout icon -->
+          </li>
+        </ul>
+      </div>
+      <!-- Main content area -->
+      <section class="home-section" style="padding: 10px;">
+        <div class="text">Read More
+          
+        </div>
+        
+        <div class="container"  style="margin: auto;" >
+          <div class="img-container">
+            <img src="<%= single.image %>" alt="Blog Image" />
+          </div>
+          <div class="card-content">
+            <h1><%= single.title %></h1>
+            <p class="excerpt">
+              <%= single.description %>
+            </p>
+            <p class="author">By <%= single.author %></p>
+          </div>
+        </div>
     
-   
+      
+    
+      </section>
+    
+    
+        
+       
+
+  
+  
 </body>
 <script>
-    let articles = document.querySelectorAll(".article");
+  let articles = document.querySelectorAll(".article");
 
 articles.forEach(i => {
-  i.addEventListener(
-    "mousemove",
-    e => {
-      let mouseX = e.offsetX;
-      let mouseY = e.offsetY;
-      i.querySelector(".overlay")
-        .style.setProperty(
-        "background-image",
-        `radial-gradient(circle at ${(mouseX) * 100  / -i.offsetWidth+100}% ${(mouseY) * 100  / -i.offsetHeight+100}%,rgba(0,0,0,0.2) 25%,rgba(0,0,0,0.33) 50%)`
-      );
-      i.style.setProperty("transform", `rotateY(${  ( ( (mouseX*100) / i.offsetWidth - 50 ) / 100) * 2}deg) rotateX(${  ( ( (mouseY*100) / i.offsetHeight - 50 ) / 100) * 2}deg) `
+i.addEventListener(
+  "mousemove",
+  e => {
+    let mouseX = e.offsetX;
+    let mouseY = e.offsetY;
+    i.querySelector(".overlay")
+      .style.setProperty(
+      "background-image",
+      `radial-gradient(circle at ${(mouseX) * 100  / -i.offsetWidth+100}% ${(mouseY) * 100  / -i.offsetHeight+100}%,rgba(0,0,0,0.2) 25%,rgba(0,0,0,0.33) 50%)`
+    );
+    i.style.setProperty("transform", `rotateY(${  ( ( (mouseX*100) / i.offsetWidth - 50 ) / 100) * 2}deg) rotateX(${  ( ( (mouseY*100) / i.offsetHeight - 50 ) / 100) * 2}deg) `
 )
-    },
-    false
-  );
-  i.addEventListener("mouseleave",()=>{
-    i.style.setProperty("transform",`rotateX(0deg) rotateY(0deg)`);
-    
-          i.querySelector(".overlay")
-        .style.setProperty(
-        "background-image",
-        `radial-gradient(circle at 50% 50%,rgba(0,0,0,0.2) 20%,rgba(0,0,0,0.3) 50%)`
-      );
-  })
+  },
+  false
+);
+i.addEventListener("mouseleave",()=>{
+  i.style.setProperty("transform",`rotateX(0deg) rotateY(0deg)`);
+  
+        i.querySelector(".overlay")
+      .style.setProperty(
+      "background-image",
+      `radial-gradient(circle at 50% 50%,rgba(0,0,0,0.2) 20%,rgba(0,0,0,0.3) 50%)`
+    );
+})
 });
 // Get the sidebar, close button, and search button elements
 let sidebar = document.querySelector(".sidebar");
@@ -599,25 +540,25 @@ let navList = document.querySelector(".nav-list");
 
 // Event listener for the menu button to toggle the sidebar open/close
 closeBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("open"); // Toggle the sidebar's open state
-  navList.classList.toggle("scroll"); // Toggle scroll state
-  menuBtnChange(); // Call function to change button icon
+sidebar.classList.toggle("open"); // Toggle the sidebar's open state
+navList.classList.toggle("scroll"); // Toggle scroll state
+menuBtnChange(); // Call function to change button icon
 });
 
 // Event listener for the search button to open the sidebar
 searchBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
-  navList.classList.toggle("scroll");
-  menuBtnChange(); // Call function to change button icon
+sidebar.classList.toggle("open");
+navList.classList.toggle("scroll");
+menuBtnChange(); // Call function to change button icon
 });
 
 // Function to change the menu button icon
 function menuBtnChange() {
-  if (sidebar.classList.contains("open")) {
-    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); // Change icon to indicate closing
-  } else {
-    closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); // Change icon to indicate opening
-  }
+if (sidebar.classList.contains("open")) {
+  closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); // Change icon to indicate closing
+} else {
+  closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); // Change icon to indicate opening
+}
 }
 </script>
 </html>

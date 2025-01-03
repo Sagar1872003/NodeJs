@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginPage , dashboardPage, registerUser , loginUser , registerPage, logoutUser, addBlog, insertData, deleteBlog, UpdateBlog, editBlog} = require('../controllers/authControllers');
+const { loginPage , dashboardPage, registerUser , loginUser , registerPage, logoutUser, addBlog, insertData, deleteBlog, UpdateBlog, editBlog , readMore} = require('../controllers/authControllers');
 
 
 const multer = require('multer');
@@ -28,6 +28,7 @@ routes.post('/loginuser',loginUser)
 routes.get('/logoutuser', logoutUser)
 routes.get('/deleteblog', deleteBlog);
 routes.post('/updateblog', fileupload, UpdateBlog);
+routes.get('/readmore',readMore)
 routes.get('/editblog', editBlog);
 
 module.exports = routes

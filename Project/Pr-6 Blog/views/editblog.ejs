@@ -587,8 +587,7 @@ textarea.form-control {
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
                     <div class="name_job">
-                        <div class="name">PIXEL PERFECT</div>
-                        <div class="job">@PixelPerfectLabs</div>
+                        <div class="name"> Log out </div>
                     </div>
                 </div>
                 <i class='bx bx-log-out' id="log_out"></i> <!-- Logout icon -->
@@ -597,16 +596,16 @@ textarea.form-control {
     </div>
     <!-- Main content area -->
     <section class="home-section">
-        <div class="text">Add Blog</div>
+        <div class="text">Edit Blog</div>
         <div class="page-wrapper">
-            <h1 class="text-center mb-4 pt-5">Create a New Blog Post</h1>
+            <h1 class="text-center mb-4 pt-5">Edit Blog </h1>
             <div class="container-fluid">
                 <div class="row justify-content-center mt-3 ">
                     <div class="col-md-6">
                         <div class="card card-hover">
                             <div class="box bg-light">
                                 <form class="p-4" action="/updateblog" method="post" enctype="multipart/form-data">
-                                    
+                                   
                                     <div class="mb-3">
                                         <label class="form-label">Title:</label>
                                         <input type="text" class="form-control" value="<%= single.title %>" name="title" required>
@@ -624,8 +623,9 @@ textarea.form-control {
 
                                     <div class="mb-3">
                                         <label class="form-label">Image:</label>
-                                        
-                                        <input type="file" class="form-control" name="image" required>
+                                        <img src="<%= single.image %>" width="100" />
+                                      
+                                        <input type="file" class="form-control" name="image">
                                     </div>
                                     <input type="hidden" name="editid" value="<%= single.id %>">
                                     <button type="submit" class="btn btn-primary">Publish Blog</button>

@@ -90,10 +90,10 @@ const loginUser = async (req, res) => {
 }
 const deleteBlog = async (req, res) => {
     try {
-        const deid = req.query.deleteid;
-        let single = await BlogModel.findById(deid);
+        const id = req.query.deleteid; 
+        let single = await BlogModel.findById(id);
         fs.unlinkSync(single.image);
-        await BlogModel.findByIdAndDelete(deid);
+        let blog =await BlogModel.findByIdAndDelete(id);
         console.log("The blog post has been removed successfully.");
         return res.redirect('/dashboard');
     } catch (error) {
@@ -108,12 +108,22 @@ const editBlog = async (req, res) => {
         const eid = req.query.editid;
         const single = await BlogModel.findById(eid);
         return res.render('editblog', { single });
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        console.log(err);
         return false;
     }
 };
-
+const readMore = async(req,res)=>{
+    try{const id = req.query.readid;
+        const single = await BlogModel.findById(id);
+        return res.render('readmore',{single})
+    }
+    catch(err){
+        console.log(err);
+        return false;
+        
+    }
+}
 // Update blog details
 const UpdateBlog = async (req, res) => {
     try {
@@ -160,5 +170,6 @@ module.exports = {
     deleteBlog,
     UpdateBlog,
     editBlog,
-    loginUser
+    loginUser,
+    readMore
 }
