@@ -28,7 +28,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     try {
         const user = await userModel.findById(id);
-        return done(null, user)
+        return done(null, user) 
 
     } catch (error) {
         return done(null, false)
@@ -47,4 +47,4 @@ passport.setUser = (req, res, next) => {
     }
     return next()
 }
-module.exports = passport
+module.exports = passport;

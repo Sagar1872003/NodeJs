@@ -1,14 +1,13 @@
 const UserModel = require('../models/authSchema')
 const BlogModel = require('../models/blogSchema');
 const fs = require('fs')
+const nodemailer=require('nodemailer')
 const addBlog = (req, res) => {
     return res.render('addblog')
 }
 
 const loginPage = (req, res) => {
-   if(req.cookies.auth){
-    return res.redirect('/dashboard')
-   }
+   
     return res.render('login');
 }
 const registerPage = (req,res) =>{
@@ -52,9 +51,7 @@ const registerUser = async (req, res) => {
 const dashboardPage = async (req, res) => {
     try {
         // Check for authentication cookie
-        if (!req.cookies['auth']) {
-            return res.redirect('/');
-        }
+        
 
         // Fetch all blogs from the database
         const blogs = await BlogModel.find({});
@@ -72,14 +69,7 @@ const dashboardPage = async (req, res) => {
 const loginUser = async (req, res) => {
     
     try {
-        const { email, password } = req.body;
-        const user = await UserModel.findOne({ email: email , password: password });
-        if (!user) {
-            console.log("Your Account not found.please register to create a new account.");
-            return res.redirect('/')
-        }
-        res.cookie('auth', user)
-        console.log("login successfully redirecting to your dashboard");
+        
         return res.redirect('/dashboard')
         
     }
@@ -155,10 +145,110 @@ const UpdateBlog = async (req, res) => {
         return false;
     }
 };
-const logoutUser = (req,res)=>{
-    res.clearCookie('auth');
+const logoutUser = async (req,res)=>{
+    req.logout((err) => {
+        if (err) {
+            console.log(err);
+            return false
+        }
+
+
+    })
     return res.redirect('/')
 }
+const otpPage =  (req,res)=>{
+    return res.render('otp')
+}
+const newpassPage = (req,res)=>{
+    return res.render('newpass')
+}
+const forgotPassword =  async(req,res)=>{
+    try{
+        let useremail= req.body.useremail;
+        console.log(useremail);
+        
+        let user = await UserModel.findOne({email:useremail});
+        if(!user){
+            console.log('User not found');
+            return res.redirect('/')
+        }
+        const otp = Math.floor(100000 + Math.random() * 900000);
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'prathamm3786@gmail.com',
+                pass: 'pvnz oxgk ulll opqx'
+            }
+        });
+
+        var mailOptions = {
+            from: 'prathamm3786@gmail.com',
+            to: useremail,
+            subject: 'forgot password',
+            html: `<h2 style='color:green'>Hello ${user?.name} Your OTP is ${otp}</h2>`
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+                let auth = {
+                    email: useremail,
+                    otp: otp
+                }
+                res.cookie('user', auth);
+                return res.redirect('/otp')
+            }
+        });
+        } catch (error) {
+            console.log(error);
+            return false;
+            
+}
+}
+const verifyOtp = async (req, res) => {
+    try {
+        let otp = req.body.otp;
+        let user = req.cookies.user;
+        if (otp == user.otp) {
+            return res.redirect('/newpassword')
+        } else {
+            console.log('Invalid OTP');
+            return res.redirect('/otp')
+        }
+
+    } catch (error) {
+        console.log(error);
+        return false;
+
+    }
+}
+const setNewPassword = async (req, res) => {
+    try {
+        let newpass = req.body.newpassword;
+        let cpass = req.body.confirmpassword;
+        if (newpass == cpass) {
+            let email = req.cookies.user?.email;
+            let User = await UserModel.findOneAndUpdate({email:email},{
+                password:newpass
+            })
+            res.clearCookie('user');
+            return res.redirect('/')
+
+        }
+        else{
+            console.log('Password not matched');
+            return res.redirect('/newpassword')
+        }
+
+    } catch (error) {
+        console.log(error);
+        return false;
+
+    }
+}
+
 module.exports = {
     loginPage,
     addBlog , insertData ,
@@ -171,5 +261,5 @@ module.exports = {
     UpdateBlog,
     editBlog,
     loginUser,
-    readMore
+    readMore,otpPage,newpassPage,forgotPassword,verifyOtp,setNewPassword
 }

@@ -20,6 +20,8 @@ app.use(passport.initialize())
 app.use(passport.setUser)
 const path = require('path')
 app.use(express.static(path.join(__dirname, 'public')))
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/', require('./routes/indexRoutes'))

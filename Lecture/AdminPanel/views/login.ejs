@@ -24,10 +24,13 @@
                   <img src="../assets/images/logos/logo.svg" alt="">
                 </a>
                 <p class="text-center">Your Social Campaigns</p>
-                <form action="/loginuser" method="post">
+
+                <!-- Login Form -->
+                <form id="loginForm" action="/loginuser" method="post">
                   <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Username</label>
-                    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1" class="form-label">User Email</label>
+                    <input type="email" class="form-control" name="email" id="exampleInputEmail1"
+                      aria-describedby="emailHelp">
                   </div>
                   <div class="mb-4">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -40,7 +43,7 @@
                         Remeber this Device
                       </label>
                     </div>
-                    <a class="text-primary fw-bold" href="#">Forgot Password ?</a>
+                    <a class="text-primary fw-bold" href="#" id="forgotPasswordLink">Forgot Password ?</a>
                   </div>
                   <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                   <div class="d-flex align-items-center justify-content-center">
@@ -48,6 +51,20 @@
                     <a class="text-primary fw-bold ms-2" href="/register">Create an account</a>
                   </div>
                 </form>
+
+                <!-- Forgot Password Form -->
+                <form id="forgotPasswordForm" action="/forgotpassword" method="post" style="display: none;">
+                  <div class="mb-3">
+                    <label for="forgotEmail" class="form-label">Enter your email</label>
+                    <input type="
+                    email" class="form-control" name="useremail" id="forgotEmail" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Submit</button>
+                  <div class="d-flex align-items-center justify-content-center">
+                    <a class="text-primary fw-bold" href="#" id="backToLoginLink">Back to Login</a>
+                  </div>
+                </form>
+
               </div>
             </div>
           </div>
@@ -55,10 +72,31 @@
       </div>
     </div>
   </div>
+
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!-- solar icons -->
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script>
+    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    const backToLoginLink = document.getElementById('backToLoginLink');
+    const loginForm = document.getElementById('loginForm');
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+
+    // Show Forgot Password Form
+    forgotPasswordLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginForm.style.display = 'none';
+      forgotPasswordForm.style.display = 'block';
+    });
+
+    // Back to Login Form
+    backToLoginLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      forgotPasswordForm.style.display = 'none';
+      loginForm.style.display = 'block';
+    });
+  </script>
 </body>
 
 </html>
