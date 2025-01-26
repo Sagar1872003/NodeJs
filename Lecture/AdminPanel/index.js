@@ -22,9 +22,17 @@ const path = require('path')
 app.use(express.static(path.join(__dirname, 'public')))
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
-app.use(express.urlencoded({ extended: true }));
+const flash = require('connect-flash');
+app.use(flash());
+
+app.use(function (req, res, next) {
+    res.locals.message = req.flash()
+    return next();
+})
+app.use(express.urlencoded());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/', require('./routes/indexRoutes'))
+
 
 app.listen(port, (err) => {
     if (err) {
@@ -32,5 +40,5 @@ app.listen(port, (err) => {
         return false
     }
     console.log(`Server is running on port ${port}`);
-
+    
 })

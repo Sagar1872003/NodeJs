@@ -1,6 +1,6 @@
 const passport = require('passport')
 const passportLocal = require('passport-local').Strategy
-const userModel = require('../models/userSchema')
+const userModel = require('../models/userModel')
 passport.use(new passportLocal({
     usernameField: 'email'
 }, async (email, password, done) => {

@@ -1,4 +1,4 @@
-const user = require('../models/userSchema');
+const user = require('../models/userModel');
 var nodemailer = require('nodemailer');
 const loginPage = (req, res) => {
     return res.render('login');
