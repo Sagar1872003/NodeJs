@@ -77,8 +77,8 @@
                 <!-- Category Dropdown -->
                 <div class="mb-3">
                   <label for="categorySelect" class="form-label">Category</label>
-                  <select class="form-control" id="categorySelect" name="category" required>
-                    <option value="" disabled selected>Select a category</option>
+                  <select class="form-control" onchange="categoryRecord()" id="category" name="category" >
+                    <option value=""  selected>Select a category</option>
                     
                       <% cat.map((category) => { %>
                         <option value="<%= category?.id %>"><%= category.category %></option>
@@ -88,12 +88,8 @@
                 </div>
                 <div class="mb-3">
                   <label for="categorySelect" class="form-label">subcategory</label>
-                  <select class="form-control" id="categorySelect" name="subcategory" required>
-                    <option value="" disabled selected>Select a subcategory</option>
-                    
-                      <% subcat.map((subcategory) => { %>
-                        <option value="<%= subcategory?.id %>"><%= subcategory?.subcategory %></option>
-                      <% }); %>
+                  <select class="form-control" id="subcategory" name="subcategory" >
+                     <option value="" >Select a subcategory</option>
                     
                   </select>
                 </div>
@@ -114,7 +110,25 @@
     </div>
   </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    const categoryRecord = () =>{
+      let categoryid = document.getElementById('category').value;
+      $.ajax({
+        type: 'get',
+        url: `/exsubcategory/ajaxcategorywiserecord?categoryId=${categoryid}`,
+        success: function(res){
+          let category = res.category;
+          let tbl = '';
+          tbl += `<option value="" >Select a subcategory</option>`;
+          category.map((subcategory) => {
+            tbl += `<option value="${subcategory?._id}">${subcategory?.subcategory}</option>`;
+          });
+          document.getElementById('subcategory').innerHTML = tbl;
+        }
+      });
+    }
+  </script>
 <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/sidebarmenu.js"></script>

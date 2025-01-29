@@ -7,7 +7,7 @@ passport.use(new passportLocal({
     try {
         const user = await userModel.findOne({ email: email, password: password })
         if (!user) {
-            console.log("Email and password did not matched.");
+            req.flash('error', 'Invalid email or password')
             return done(null, false)
 
         }

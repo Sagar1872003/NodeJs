@@ -14,7 +14,7 @@ const registerUser = async (req, res) => {
             email: email,
             password: password
         });
-        console.log('User created successfully');
+        req.flash('success', 'User registered successfully');
         return res.redirect('/');
 
     } catch (error) {
@@ -115,7 +115,7 @@ const forgotPassword = async (req, res) => {
             if (error) {
                 console.log(error);
             } else {
-                console.log('Email sent: ' + info.response);
+                req.flash('success', 'OTP sent successfully');
                 let auth = {
                     email: useremail,
                     otp: otp
@@ -139,7 +139,7 @@ const verifyOtp = async (req, res) => {
         if (otp == user.otp) {
             return res.redirect('/newpassword')
         } else {
-            console.log('Invalid OTP');
+            req.flash('error', 'OTP not matched');
             return res.redirect('/otp')
         }
 
@@ -163,7 +163,7 @@ const setNewPassword = async (req, res) => {
 
         }
         else{
-            console.log('Password not matched');
+            req.flash('error','Password not matched');
             return res.redirect('/newpassword')
         }
 

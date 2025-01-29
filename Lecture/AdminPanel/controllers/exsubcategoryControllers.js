@@ -30,13 +30,15 @@ const addexSubcategory = async (req, res) => {
 const insertExSubCategory = async (req, res) => {
     try {
         const { category, subcategory, exsubcategory } = req.body;
+        console.log(category, subcategory, exsubcategory);
+
         await ExSubCategory.create({
             categoryId: category,
             subcategoryId: subcategory,
             exsubcategory: exsubcategory
         })
-        req.flash('success', "Your subcategory has been created successfully.");
-        return res.redirect('/exsubcategory');
+        req.flash('success', "Your Exsubcategory has been created successfully."); 
+        return res.redirect('/exsubcategory/addexsubcategory');
 
     } catch (error) {
         console.log(error);
@@ -48,7 +50,7 @@ const deleteExSubCategory = async (req, res) => {
     try {
         let id = req.query.deleteid;
         await ExSubCategory.findByIdAndDelete(id);
-        req.flash('delete', "Your subcategory has been deleted successfully.");
+        req.flash('delete', "Your Exsubcategory has been deleted successfully.");
         return res.redirect('/exsubcategory');
     }
     catch (error) {
@@ -82,14 +84,14 @@ const updateExSubCategory = async (req, res) => {
             subcategoryId: subcategory,
             exsubcategory: exsubcategory
         });
-        req.flash('update', "Your subcategory has been updated successfully.");
+        req.flash('update', "Your Exsubcategory has been updated successfully.");
         return res.redirect('/exsubcategory');
 
     } catch (error) {
 
     }
 }
-const changeStatuss = async (req, res) => {
+const changeStatus = async (req, res) => {
     try {
         let id = req.query.id;
         let status = req.query.status;
@@ -109,9 +111,25 @@ const changeStatuss = async (req, res) => {
         return false
     }
 }
+const ajaxCategorywiseRecord = async (req, res) => {
+    try {
+        let categoryid = req.query.categoryId;
+        let categorydata = await SubCategory.find({ categoryId: categoryid }).populate('categoryId');
+        return res.status(200).send({
+            success: true,
+            message: "Record Found",
+            category: categorydata
+        })
+
+    } catch (error) {
+        console.log(error);
+        return false
+
+    }
+}
 
 
 module.exports = {
     viewExSubcategory,
-    addexSubcategory, insertExSubCategory, deleteExSubCategory, editExSubCategory, updateExSubCategory, changeStatuss
+    addexSubcategory, insertExSubCategory, deleteExSubCategory, editExSubCategory, updateExSubCategory, changeStatus, ajaxCategorywiseRecord
 }
