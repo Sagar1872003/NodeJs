@@ -18,8 +18,6 @@ passport.use(new passportLocal({
         return done(null, false)
 
     }
-
-
 }
 ))
 passport.serializeUser((user, done) => {

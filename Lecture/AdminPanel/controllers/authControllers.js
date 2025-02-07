@@ -25,6 +25,7 @@ const registerUser = async (req, res) => {
 }
 const loginUser = async (req, res) => {
     try {
+        req.flash('success', 'User logged in successfully');
         return res.redirect('/dashboard');
 
     } catch (error) {
@@ -42,10 +43,10 @@ const logoutUser = (req, res) => {
             console.log(err);
             return false
         }
-
-
+        req.flash('success', 'User logged out successfully');
+        return res.redirect('/')
     })
-    return res.redirect('/')
+   
 }
 const typoPage = (req, res) => {
     return res.render('typography')
@@ -115,12 +116,12 @@ const forgotPassword = async (req, res) => {
             if (error) {
                 console.log(error);
             } else {
-                req.flash('success', 'OTP sent successfully');
                 let auth = {
                     email: useremail,
                     otp: otp
                 }
                 res.cookie('user', auth);
+                req.flash('success', 'OTP sent successfully');
                 return res.redirect('/otp')
             }
         });

@@ -129,6 +129,27 @@
                 </li>
               </ul>
             </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false" id="productToggle">
+                <i class="fas fa-folder-plus"></i>
+                <span class="hide-menu">product</span>
+                <i class="fas fa-angle-down float-end"></i>
+              </a>
+              <ul class="list-unstyled collapse" id="productMenu">
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="/product" aria-expanded="false">
+                    <iconify-icon icon="solar:list-check-line-duotone"></iconify-icon>
+                    <span class="hide-menu">View Product</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="/product/addproduct" aria-expanded="false">
+                    <iconify-icon icon="material-symbols:add"></iconify-icon>
+                    <span class="hide-menu">Add Product</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
             
             <li>
               <span class="sidebar-divider lg"></span>
@@ -212,6 +233,10 @@
     
       document.getElementById('exsubcategoryToggle').addEventListener('click', function () {
         const menu = document.getElementById('exsubcategoryMenu');
+        menu.classList.toggle('collapse');
+      });
+      document.getElementById('productToggle').addEventListener('click', function () {
+        const menu = document.getElementById('productMenu');
         menu.classList.toggle('collapse');
       });
     </script>

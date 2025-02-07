@@ -131,8 +131,7 @@
         category.map((subcategory) => {
           tbl += `<option 
             value="${subcategory?._id}" 
-            ${subcategory?._id === "<%= single?.subcategoryId?._id %>" ? 'selected' : ''}>
-            ${subcategory?.subcategory}
+            ${subcategory?._id === "<%= single?.subcategoryId?._id %>" ? 'selected' : ''}> ${subcategory?.subcategory}
           </option>`;
         });
         document.getElementById('subcategory').innerHTML = tbl;
@@ -140,10 +139,7 @@
     });
   };
 
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    categoryRecord(); 
-  });
+  categoryRecord();
 </script>
 
 </body>

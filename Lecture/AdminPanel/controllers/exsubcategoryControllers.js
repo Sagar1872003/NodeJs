@@ -30,7 +30,7 @@ const addexSubcategory = async (req, res) => {
 const insertExSubCategory = async (req, res) => {
     try {
         const { category, subcategory, exsubcategory } = req.body;
-        console.log(category, subcategory, exsubcategory);
+        
 
         await ExSubCategory.create({
             categoryId: category,
@@ -114,6 +114,7 @@ const changeStatus = async (req, res) => {
 const ajaxCategorywiseRecord = async (req, res) => {
     try {
         let categoryid = req.query.categoryId;
+        
         let categorydata = await SubCategory.find({ categoryId: categoryid }).populate('categoryId');
         return res.status(200).send({
             success: true,
