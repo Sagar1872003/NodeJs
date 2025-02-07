@@ -94,7 +94,7 @@
                 
                 <div class="mb-3">
                   <label class="form-label">Subcategory</label>
-                  <select class="form-control" id="subcategory" name="subcategory" required>
+                  <select class="form-control" id="subcategory" name="subcategory" onchange="subcategoryRecord()" required>
                     <option value="" disabled selected>Select a subcategory</option>
                     <% subcat.map((subcategory) => { %>
                       <option 
@@ -138,7 +138,7 @@
                 <div class="mb-3">
                   <label class="form-label">Product Image</label>
                   <input type="file" class="form-control" name="image" accept="image">
-                  <img src="<%= single.image %>" alt="Current Product Image" width="100">
+                  <img src="<%= single.image %>"  width="100">
                 </div>
                 
                 <div class="mb-3">
@@ -158,34 +158,42 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    function categoryRecord(element, productId) {
-      let categoryId = element.value;
+    function categoryRecord() {
+      let categoryId = document.getElementById('category').value
       $.ajax({
         type: 'GET',
         url: `/exsubcategory/ajaxcategorywiserecord?categoryId=${categoryId}`,
-        success: function(res) {
-          let subcategorySelect = $(`#subcategory_${productId}`);
-          let options = '<option value="">Select a subcategory</option>';
-          res.category.map(subcat => {
-            options += `<option value="${subcat?._id}">${subcat?.subcategory}</option>`;
-          });
-          subcategorySelect.html(options);
-        }
+        success: function (res) {
+        let category = res.category;
+        let tbl = '<option value="" disabled selected>Select a subcategory</option>';
+        category.map((subcategory) => {
+          tbl += `<option 
+            value="${subcategory?._id}" 
+            ${subcategory?._id === "<%= single?.subcategoryId?._id %>" ? 'selected' : ''}> ${subcategory?.subcategory}
+          </option>`;
+        });
+        document.getElementById('subcategory').innerHTML = tbl;
+      }
       });
     }
   
-    function subcategoryRecord(element, productId) {
-      let subcategoryId = element.value;
+    function subcategoryRecord() {
+      let subcategoryId = document.getElementById('subcategory').value
+      
+      
       $.ajax({
         type: "GET",
         url: `/product/ajaxsubcategorywisedata?subcategoryId=${subcategoryId}`,
         success: function(res) {
-          let exsubcategorySelect = $(`#exsubcategory_${productId}`);
+          let subcategory = res.exsubcategory;
           let options = '<option value="">Select an exsubcategory</option>';
-          res.exsubcategory.map(exsubcat => {
-            options += `<option value='${exsubcat?._id}'>${exsubcat?.exsubcategory}</option>`;
+          subcategory.map(exsubcat => {
+            options += `<option 
+            value="${exsubcat?._id}" 
+            ${exsubcat?._id === "<%= single?.exsubcategoryId?._id %>" ? 'selected' : ''}> ${exsubcat?.exsubcategory}
+          </option>`;
           });
-          exsubcategorySelect.html(options);
+          document.getElementById('exsubcategory').innerHTML = options;
         }
       });
     }

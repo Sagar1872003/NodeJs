@@ -95,7 +95,7 @@ const deleteBlog = async (req, res) => {
 // Edit blog (render form for editing)
 const editBlog = async (req, res) => {
     try {
-        const eid = req.query.editid;
+        
         const single = await BlogModel.findById(eid);
         return res.render('editblog', { single });
     } catch (err) {
