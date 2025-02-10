@@ -28,7 +28,7 @@ const addProduct = async (req, res) => {
                 cat: category,
                 subcat: subcategory,
                 exsubcat: exsubcategory
-            }
+             }
         );
     } catch (error) {
         console.error(error);
