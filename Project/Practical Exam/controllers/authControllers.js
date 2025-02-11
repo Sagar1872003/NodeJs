@@ -177,7 +177,16 @@ const addToCart = async (req, res) => {
     }
 };
 
-
+const updatCart = async(req,res) => {
+    try {
+        let cartId = req.query.cartid;
+        
+    } catch (error) {
+        console.log(error);
+        return false
+        
+    }
+}
 
 
 
@@ -296,5 +305,6 @@ addToCart,
     UpdateBlog,
     editBlog,
     loginUser,
-    readMore, otpPage, newpassPage, forgotPassword, verifyOtp, setNewPassword
+    readMore, otpPage, newpassPage, forgotPassword, verifyOtp, setNewPassword, 
+    updatCart
 }

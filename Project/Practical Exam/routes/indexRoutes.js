@@ -37,6 +37,7 @@ routes.get('/newpassword',newpassPage)
 routes.post('/forgotpassword', forgotPassword)
 routes.post('/verifyotp', verifyOtp)
 routes.post('/setnewpassword', setNewPassword)
+routes.post('/updatecart')
 
 
 

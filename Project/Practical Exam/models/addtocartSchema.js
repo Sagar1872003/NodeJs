@@ -11,13 +11,9 @@ const addToCartSchema = new mongoose.Schema({
     },
     quantity: {
         type: Number,
-        required: true,
-        min: 1
-    },
-    addedAt: {
-        type: Date,
-        default: Date.now
+        required: true
     }
+
 });
 
 module.exports = mongoose.model('AddToCart', addToCartSchema);

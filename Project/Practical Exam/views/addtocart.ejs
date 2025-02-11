@@ -461,6 +461,12 @@
             </a>
             <span class="tooltip">Add Product</span>
           </li>
+          <li>
+            <a href="/addtocart">
+              <i class="fa-solid fa-shopping-cart"></i> <!-- Cart Icon -->
+            </a>
+            <span class="tooltip">View Cart</span>
+          </li>
           <!-- Profile section -->
           <li class="profile">
             <div class="profile-details">
@@ -489,7 +495,7 @@
               </tr>
             </thead>
             <tbody>
-              
+              <form action="/updatecart" method="post">
               <% cart.map((item) => { %>
               <tr style="border-bottom: 1px solid #ddd;">
                 <td style="padding: 10px; display: flex; align-items: center;">
@@ -500,9 +506,9 @@
                 </td>
                 <td style="padding: 10px;"><%= item.productId?.title %></td>
                 <td style="padding: 10px;">
-                  <button class="qty-btn" onclick="updateQuantity('<%= item.productId?.id %>', -1)">-</button>
-                  <input type="number" id="qty-<%= item.productId?.id %>" value="<%= item.productId?.quantity %>" min="1" style="width: 40px; text-align: center;" readonly>
-                  <button class="qty-btn" onclick="updateQuantity('<%= item.productId?.id %>', 1)">+</button>
+                 
+                  <input type="number" name="quantity" value="<%= item.productId?.quantity %>"  style="width: 40px; text-align: center;" >
+                  
                 </td>
                 <td style="padding: 10px;">$<span id="total-<%= item.productId?.id %>">
                   <%= (Number(item.productId?.price) * Number(item.productId?.quantity)).toFixed(2) %>
@@ -512,6 +518,7 @@
                 </td>
               </tr>
               <% }); %>
+            </form>
             </tbody>
           </table>
         </div>
@@ -524,6 +531,17 @@
     
         
        
+
+  <script>
+  function updateQuantity(id) {
+    let qtyInput = document.getElementById('qty-' + id);
+    let newQty = Math.max(1, parseInt(qtyInput.value) || 1);
+    qtyInput.value = newQty; // Prevent invalid inputs
+
+    let price = parseFloat(document.querySelector(`#total-${id}`).dataset.price);
+    document.getElementById('total-' + id).innerText = (newQty * price).toFixed(2);
+  }
+</script>
 
   
   
