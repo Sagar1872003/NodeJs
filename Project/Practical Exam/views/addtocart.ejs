@@ -489,12 +489,8 @@
               </tr>
             </thead>
             <tbody>
-              <script>
-                cartItems.forEach(item => {
-    console.log("Item:", item);
-});
-              </script>
-              <% cartItems.map((item) => { %>
+              
+              <% cart.map((item) => { %>
               <tr style="border-bottom: 1px solid #ddd;">
                 <td style="padding: 10px; display: flex; align-items: center;">
                   <img src="<%= item.image ? item.image : '/images/default-placeholder.png' %>" 
@@ -502,7 +498,7 @@
                        style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
                   <%= item.title %>
                 </td>
-                <td style="padding: 10px;">$<%= Number(item.price).toFixed(2) %></td>
+                <td style="padding: 10px;">$<%= item.productId?.title %></td>
                 <td style="padding: 10px;">
                   <button class="qty-btn" onclick="updateQuantity('<%= item.id %>', -1)">-</button>
                   <input type="number" id="qty-<%= item.id %>" value="<%= item.quantity %>" min="1" style="width: 40px; text-align: center;" readonly>
@@ -521,37 +517,7 @@
         </div>
       </section>
       
-      <script>
-        function updateQuantity(itemId, change) {
-          let qtyInput = document.getElementById(`qty-${itemId}`);
-          let newQty = parseInt(qtyInput.value) + change;
-          if (newQty < 1) return; // Prevent negative quantity
-      
-          qtyInput.value = newQty;
-      
-          // Fetch price and update total
-          let price = parseFloat(document.querySelector(`#total-${itemId}`).getAttribute("data-price"));
-          document.getElementById(`total-${itemId}`).innerText = `$${(price * newQty).toFixed(2)}`;
-      
-          // Update quantity in backend (use fetch or AJAX)
-          fetch(`/update-cart/${itemId}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ quantity: newQty })
-          }).then(response => response.json()).then(data => {
-            console.log("Cart updated:", data);
-          }).catch(error => console.error("Error updating cart:", error));
-        }
-      
-        function removeItem(itemId) {
-          fetch(`/remove-cart/${itemId}`, {
-            method: "DELETE"
-          }).then(response => response.json()).then(data => {
-            console.log("Item removed:", data);
-            location.reload(); // Refresh cart
-          }).catch(error => console.error("Error removing item:", error));
-        }
-      </script>
+
       
       
     

@@ -155,14 +155,6 @@ const addToCart = async (req, res) => {
         let atc = req.query.atcid;
         let userId = req.user ? req.user._id : null;
 
-        if (!atc) {
-            return res.status(400).json({ error: "Product ID is required" });
-        }
-
-        const product = await ProductModel.findById(atc);
-        if (!product) {
-            return res.status(404).json({ error: "Product not found" });
-        }
 
         let cartItem = await addToCartModel.findOne({ userId, productId: atc });
 
@@ -172,15 +164,12 @@ const addToCart = async (req, res) => {
                 productId: atc,
                 quantity: 1
             });
-            await cartItem.save();
+            await cartItem.save()
         }
 
-        const cartItems = await addToCartModel.find({ userId }).populate('productId').lean();
+        const cartItems = await addToCartModel.find({ userId }).populate('productId')
 
-        // Debugging Step - Check what is being sent
-        console.log("Cart Items:", cartItems);
-
-        return res.render('addtocart', { cartItems : cartItems });
+        return res.render('addtocart', { cart : cartItems });
 
     } catch (error) {
         console.error(error);
