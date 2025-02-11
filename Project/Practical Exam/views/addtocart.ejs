@@ -493,22 +493,22 @@
               <% cart.map((item) => { %>
               <tr style="border-bottom: 1px solid #ddd;">
                 <td style="padding: 10px; display: flex; align-items: center;">
-                  <img src="<%= item.image ? item.image : '/images/default-placeholder.png' %>" 
-                       alt="<%= item.title %>" 
+                  <img src="<%= item.productId?.image ? item.productId?.image : '/images/default-placeholder.png' %>" 
+                       alt="<%= item.productId?.title %>" 
                        style="width: 50px; height: 50px; margin-right: 10px; border-radius: 5px;">
                   <%= item.title %>
                 </td>
-                <td style="padding: 10px;">$<%= item.productId?.title %></td>
+                <td style="padding: 10px;"><%= item.productId?.title %></td>
                 <td style="padding: 10px;">
-                  <button class="qty-btn" onclick="updateQuantity('<%= item.id %>', -1)">-</button>
-                  <input type="number" id="qty-<%= item.id %>" value="<%= item.quantity %>" min="1" style="width: 40px; text-align: center;" readonly>
-                  <button class="qty-btn" onclick="updateQuantity('<%= item.id %>', 1)">+</button>
+                  <button class="qty-btn" onclick="updateQuantity('<%= item.productId?.id %>', -1)">-</button>
+                  <input type="number" id="qty-<%= item.productId?.id %>" value="<%= item.productId?.quantity %>" min="1" style="width: 40px; text-align: center;" readonly>
+                  <button class="qty-btn" onclick="updateQuantity('<%= item.productId?.id %>', 1)">+</button>
                 </td>
-                <td style="padding: 10px;">$<span id="total-<%= item.id %>">
-                  <%= (Number(item.price) * Number(item.quantity)).toFixed(2) %>
+                <td style="padding: 10px;">$<span id="total-<%= item.productId?.id %>">
+                  <%= (Number(item.productId?.price) * Number(item.productId?.quantity)).toFixed(2) %>
                 </span></td>
                 <td style="padding: 10px;">
-                  <button class="remove-btn" onclick="removeItem('<%= item.id %>')">X</button>
+                  <button class="remove-btn" onclick="removeItem('<%= item.productId?.id %>')">X</button>
                 </td>
               </tr>
               <% }); %>
