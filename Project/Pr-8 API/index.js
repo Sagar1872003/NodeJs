@@ -2,7 +2,7 @@ const express = require('express');
 const port = 9000;
 const app = express();
 
-const db = require('./config/database');
+const db = require('./config/db');
 db();
 
 app.use(express.urlencoded());
