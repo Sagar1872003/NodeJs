@@ -62,12 +62,16 @@ const registerUser = async (req, res) => {
 }
 const viewUser = async (req, res) => {
     try {
-        let allUsers = await userModel.find({});
+        let admin = await userModel.find({ role: 'admin' });
+        let allUsers = await userModel.find({ role: 'user' });
         return res.status(200).send({
             success: true,
             message: "All Users",
-            length: allUsers.length,
-            allUsers
+            admin,
+            allUsers: {
+                length: allUsers.length,
+                users: allUsers
+            }
         })
     } catch (err) {
         return res.status(500).send({
