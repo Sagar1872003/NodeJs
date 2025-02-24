@@ -120,8 +120,8 @@ const userDeleteComment = async (req, res) => {
 }
 const adminUpdateComment = async (req, res) => {
     try {
-        let { commentid, comment } = req.body;
-        let single = await commentModel.findByIdAndUpdate(commentid, {
+        let { id, comment } = req.body;
+        let single = await commentModel.findByIdAndUpdate(id, {
             comment: comment
         });
         return res.status(200).send({
