@@ -22,7 +22,6 @@ const AdminSidebar = () => {
 
                             <Link to={`/admin/pendingapproval`} className={`list-group-item ${location?.pathname == '/admin/pendingapproval' ? 'active' : ''}`}>Deactive Users</Link>
                             <Link to={`/admin/viewblog`} className={`list-group-item ${location?.pathname == '/admin/viewblog' ? 'active' : ''}`}>Blogs</Link>
-                            <Link className="list-group-item">add</Link>
                         </div>
                     </div>
                 </div>

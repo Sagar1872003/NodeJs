@@ -60,6 +60,14 @@ const Header = () => {
               )}
               {auth?.token && location.pathname === "/user/dashboard" && (
                 <li className="nav-item">
+                  <button className="btn btn-success btn-sm fw-bold mx-2" onClick={() => navigate(`/user/userblogs/${auth?.token?.user?._id}`)}>
+                    View Your Blogs
+                  </button>
+                  
+                </li>
+              )}
+              {auth?.token && location.pathname === "/user/dashboard" && (
+                <li className="nav-item">
                   <button
                     className="btn text-white btn-warning btn-sm fw-bold mx-2"
                     onClick={() => navigate(`/user/viewprofile/${auth?.token?.user?._id}`)}

@@ -9,8 +9,8 @@ const User = () => {
   const [auth] = useAuth();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  
+
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -66,14 +66,18 @@ const User = () => {
                     <h5 className="card-title">{blog.title}</h5>
                     <p className="card-text">{blog.content.substring(0, 100)}...</p>
 
-                    {/* Show Author and Date */}
                     <p className="text-muted small">
                       <strong>By:</strong> {blog.author?.name} <br />
-                      <strong>Posted on:</strong> {new Date(blog.createdAt).toLocaleString().slice(0,14)}
-                      
+                      <strong>Posted on:</strong> {new Intl.DateTimeFormat('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                      }).format(new Date(blog.createdAt))}
                     </p>
 
-                    <button className="btn btn-primary">Read More</button>
                   </div>
                 </div>
               </div>

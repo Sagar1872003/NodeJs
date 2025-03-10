@@ -81,6 +81,8 @@ const ProfileUpdate = () => {
         toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
+      
       toast.error("Failed to update profile");
     }
   };
@@ -119,7 +121,7 @@ const ProfileUpdate = () => {
 
           <div className="mb-3">
             <label className="form-label">Email</label>
-            <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="email" disabled className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
           <div className="mb-3">
