@@ -1,5 +1,5 @@
 const express = require('express');
-const { createBlog, viewBlog, getProfile, updateProfile, viewProfile, userBlogs, deleteBlog, getBlog, updateBlog } = require('../controllers/UserController');
+const { createBlog, viewBlog, getProfile, updateProfile, viewProfile, userBlogs, deleteBlog, getBlog, updateBlog, addComment, getComments, deleteComment ,  } = require('../controllers/UserController');
 
 const routes = express.Router()
 
@@ -18,6 +18,10 @@ routes.get('/userprofile/:id', viewProfile)
 routes.delete('/deleteblog/:id', upload, deleteBlog)
 routes.get('/getblog/:id', getBlog)
 routes.put('/updateblog/:id', upload, updateBlog)
+routes.post('/addcomment', addComment)
+routes.get("/comments/:blogId", getComments);
+routes.delete("/deletecomment/:id" , deleteComment)
+
 
 
 module.exports = routes;

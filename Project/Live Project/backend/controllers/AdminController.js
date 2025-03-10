@@ -1,6 +1,7 @@
 const UserModel = require('../models/UserModel')
 const BlogModel = require('../models/BlogModel')
 const cloudinary = require('cloudinary').v2
+const CommentModel = require('../models/CommentModel')
 
 const allUser = async (req, res) => {
     try {
@@ -128,8 +129,9 @@ const deleteBlog = async (req, res) => {
         await cloudinary.uploader.destroy(blog.public_id);
 
         await BlogModel.findByIdAndDelete(req.params.id);
+        await CommentModel.deleteMany({ blogId: req.params.id });
 
-        res.json({ message: "Blog deleted successfully!" });
+        res.json({ message: "Blog and associated comments deleted successfully!" });
     } catch (error) {
         console.error("Error deleting blog:", error);
         res.status(500).json({ error: "Internal Server Error" });
@@ -224,6 +226,36 @@ const updateProfile = async (req, res) => {
         });
     }
 };
+const getComments = async (req, res) => {
+    try {
+      const { blogId } = req.params;
+      if (!blogId) {
+        return res.status(400).json({ message: "Blog ID is required" });
+      }
+  
+      const comments = await CommentModel.find({ blogId })
+        .populate("userId", "name") 
+        .sort({ createdAt: -1 });
+  
+      res.status(200).json({ success: true, comments });
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+  const deleteComment = async(req,res)=>{
+    try {
+        const comment = CommentModel.findById(req.params.id)
+        if (!comment) {
+            return res.status(404).json({ message: "comment not found" });
+        }
+        await CommentModel.findByIdAndDelete(req.params.id)
+        res.json({ success: true, message: "Comment deleted successfully" });
+    } catch (error) {
+        console.error("Error in deleting comments:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
 module.exports = {
-    allUser, changeStatus, updateProfile, getProfile , deleteUser , viewProfile , pendingApproval , viewBlog ,deleteBlog,updateBlog , getBlog
+    allUser, changeStatus, updateProfile, getProfile , deleteUser , viewProfile , pendingApproval , viewBlog ,deleteBlog,updateBlog , getBlog , getComments , deleteComment
 }

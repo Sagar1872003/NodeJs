@@ -1,6 +1,7 @@
 const BlogModel = require('../models/BlogModel')
 const cloudinary = require('cloudinary').v2
 const UserModel = require('../models/UserModel')
+const CommentModel = require('../models/CommentModel')
 
 const createBlog = async (req, res) => {
     try {
@@ -23,7 +24,7 @@ const createBlog = async (req, res) => {
 
         await newBlog.save();
 
-        
+
 
         res.status(201).json({ message: "Blog created successfully!", blog: newBlog });
 
@@ -76,7 +77,7 @@ const updateProfile = async (req, res) => {
         if (req.file) {
             const result = await cloudinary.uploader.upload(req.file.path, { folder: "profiles" });
             imageUrl = result.secure_url;
-            public_id = result.public_id; 
+            public_id = result.public_id;
         }
 
         const updateData = { name, email, gender, city, contact };
@@ -96,7 +97,7 @@ const updateProfile = async (req, res) => {
         });
     }
 };
-const viewProfile = async(req,res)=>{
+const viewProfile = async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.id)
         if (!user) {
@@ -108,10 +109,10 @@ const viewProfile = async(req,res)=>{
         res.status(500).json({ success: false, message: 'Server error' });
     }
 }
-const userBlogs = async (req,res)=>{
+const userBlogs = async (req, res) => {
     try {
-        const userId = req.user._id; 
-        
+        const userId = req.user._id;
+
         const blogs = await BlogModel.find({ author: userId }).sort({ createdAt: -1 });
 
         res.json({ success: true, blogs });
@@ -137,7 +138,7 @@ const deleteBlog = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
-const getBlog =async(req,res)=>{
+const getBlog = async (req, res) => {
     try {
         const blog = await BlogModel.findById(req.params.id);
         if (!blog) {
@@ -151,12 +152,12 @@ const getBlog =async(req,res)=>{
     }
 
 }
-const updateBlog = async(req,res)=>{
+const updateBlog = async (req, res) => {
     try {
         console.log(req.body);
         console.log(req.file);
-        
-        
+
+
         const { title, content } = req.body;
         let imageUrl = null;
         let public_id = null;
@@ -172,9 +173,9 @@ const updateBlog = async(req,res)=>{
         if (req.file) {
             const result = await cloudinary.uploader.upload(req.file.path, { folder: "blog-images" });
             imageUrl = result.secure_url;
-            public_id = result.public_id; 
+            public_id = result.public_id;
         }
-        const updateData = {title,content };
+        const updateData = { title, content };
         if (imageUrl) {
             updateData.image = imageUrl;
             updateData.public_id = public_id;
@@ -186,7 +187,65 @@ const updateBlog = async(req,res)=>{
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
+const addComment = async (req, res) => {
+    try {
+        const { blogId, userId, comment } = req.body;
+        if (!blogId || !userId || !comment) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+        const newComment = new CommentModel({ blogId: blogId, userId: userId, comment: comment });
+        await newComment.save();
+        res.status(201).json({ message: 'Comment added successfully', comment: newComment });
 
+
+    } catch (error) {
+        console.error("Error commenting on blog", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+const getComments = async (req, res) => {
+    try {
+        const { blogId } = req.params;
+        if (!blogId) {
+            return res.status(400).json({ message: "Blog ID is required" });
+        }
+
+        const comments = await CommentModel.find({ blogId })
+            .populate("userId", "name")
+            .sort({ createdAt: -1 });
+
+        res.status(200).json({ success: true, comments });
+    } catch (error) {
+        console.error("Error fetching comments:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+const deleteComment = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id);
+
+        const userId = req.user._id;
+
+
+        const comment = await CommentModel.findById(id);
+        if (!comment) {
+            return res.status(404).json({ success: false, message: "Comment not found" });
+        }
+
+        if (comment.userId.toString() !== userId) {
+            return res.status(403).json({ success: false, message: "Unauthorized: You can only delete your own comments" });
+        }
+
+        await CommentModel.findByIdAndDelete(id);
+        res.json({ success: true, message: "Comment deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting comment:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+
+
+}
 module.exports = {
-    createBlog, viewBlog , getProfile , updateProfile, viewProfile , userBlogs , deleteBlog , getBlog , updateBlog
+    createBlog, viewBlog, getProfile, updateProfile, viewProfile, userBlogs, deleteBlog, getBlog, updateBlog, addComment, getComments, deleteComment
 }

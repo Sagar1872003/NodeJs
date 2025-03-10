@@ -1,7 +1,7 @@
 const express = require('express');
 
 const routes = express.Router();
-const { allUser, changeStatus, getProfile, updateProfile, deleteUser, viewProfile, pendingApproval, viewBlog, deleteBlog, updateBlog, getBlog } = require('../controllers/AdminController');
+const { allUser, changeStatus, getProfile, updateProfile, deleteUser, viewProfile, pendingApproval, viewBlog, deleteBlog, updateBlog, getBlog, getComments, deleteComment } = require('../controllers/AdminController');
 
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
@@ -19,6 +19,9 @@ routes.put('/profileupdate/:id', upload, updateProfile)
 routes.delete('/deleteuser/:id', upload, deleteUser)
 routes.delete('/deleteblog/:id', upload, deleteBlog)
 routes.get('/user/:id', viewProfile)
+routes.get("/comments/:blogId", getComments);
+routes.delete('/deletecomment/:id', deleteComment)
+
 
 
 module.exports = routes;
